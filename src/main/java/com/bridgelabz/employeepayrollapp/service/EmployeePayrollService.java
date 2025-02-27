@@ -1,34 +1,32 @@
-package com.bridgelabz.employeepayrollapp.service;
+package com.bridgelabz.employeepayrollapp;
 
 import com.bridgelabz.employeepayrollapp.dto.EmployeeDTO;
 import com.bridgelabz.employeepayrollapp.model.Employee;
+import com.bridgelabz.employeepayrollapp.repository.EmployeeRepository;
+import com.bridgelabz.employeepayrollapp.service.IEmployeePayrollService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class EmployeePayrollService implements IEmployeePayrollService {
-    private List<Employee> employeeList = new ArrayList<>();
-    private int counter = 1;
+    @Autowired
+    private EmployeeRepository employeeRepository;
 
     @Override
     public List<Employee> getAllEmployees() {
-        return employeeList;
+        return employeeRepository.findAll();
     }
 
     @Override
     public Employee getEmployeeById(int id) {
-        return employeeList.stream()
-                .filter(employee -> employee.getId() == id)
-                .findFirst()
-                .orElse(null);
+        return employeeRepository.findById(id).orElse(null);
     }
 
     @Override
     public Employee createEmployee(EmployeeDTO employeeDTO) {
-        Employee newEmployee = new Employee(counter++, employeeDTO);
-        employeeList.add(newEmployee);
-        return newEmployee;
+        Employee newEmployee = new Employee(employeeDTO);
+        return employeeRepository.save(newEmployee);
     }
 
     @Override
@@ -37,12 +35,13 @@ public class EmployeePayrollService implements IEmployeePayrollService {
         if (employee != null) {
             employee.setName(employeeDTO.getName());
             employee.setSalary(employeeDTO.getSalary());
+            return employeeRepository.save(employee);
         }
-        return employee;
+        return null;
     }
 
     @Override
     public void deleteEmployee(int id) {
-        employeeList.removeIf(employee -> employee.getId() == id);
+        employeeRepository.deleteById(id);
     }
 }
