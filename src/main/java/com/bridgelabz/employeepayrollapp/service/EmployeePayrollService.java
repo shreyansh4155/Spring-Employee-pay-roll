@@ -34,10 +34,7 @@ public class EmployeePayrollService implements IEmployeePayrollService {
     public Employee getEmployeeById(int id) {
         log.debug("Fetching Employee with ID: {}", id);
         return employeeRepository.findById(id)
-                .orElseThrow(() -> {
-                    log.error("Employee with ID {} not found", id);
-                    return new EmployeeNotFoundException("Employee with ID " + id + " not found");
-                });
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee with ID " + id + " not found"));
     }
 
     @Override
