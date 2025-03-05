@@ -14,11 +14,29 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(EmployeeNotFoundException.class)
-    public ResponseEntity<ResponseDTO> handleEmployeeNotFoundException(EmployeeNotFoundException ex) {
-        ResponseDTO responseDTO = new ResponseDTO("Employee Not Found", ex.getMessage());
-        return new ResponseEntity<>(responseDTO, HttpStatus.NOT_FOUND);
-    }
+//    @ExceptionHandler(EmployeeNotFoundException.class)
+//    public ResponseEntity<ResponseDTO> handleEmployeeNotFoundException(EmployeeNotFoundException ex) {
+//        ResponseDTO responseDTO = new ResponseDTO("Employee Not Found", ex.getMessage());
+//        return new ResponseEntity<>(responseDTO, HttpStatus.NOT_FOUND);
+//    }
+//
+//    @ExceptionHandler(MethodArgumentNotValidException.class)
+//    public ResponseEntity<ResponseDTO> handleValidationExceptions(MethodArgumentNotValidException ex) {
+//        Map<String, String> errors = new HashMap<>();
+//        ex.getBindingResult().getAllErrors().forEach((error) -> {
+//            String fieldName = ((FieldError) error).getField();
+//            String errorMessage = error.getDefaultMessage();
+//            errors.put(fieldName, errorMessage);
+//        });
+//        ResponseDTO responseDTO = new ResponseDTO("Validation Error", errors);
+//        return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
+//    }
+//
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ResponseDTO> handleGlobalException(Exception ex) {
+//        ResponseDTO responseDTO = new ResponseDTO("Internal Server Error", ex.getMessage());
+//        return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ResponseDTO> handleValidationExceptions(MethodArgumentNotValidException ex) {
@@ -30,11 +48,5 @@ public class GlobalExceptionHandler {
         });
         ResponseDTO responseDTO = new ResponseDTO("Validation Error", errors);
         return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ResponseDTO> handleGlobalException(Exception ex) {
-        ResponseDTO responseDTO = new ResponseDTO("Internal Server Error", ex.getMessage());
-        return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

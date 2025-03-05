@@ -1,6 +1,7 @@
 package com.bridgelabz.employeepayrollapp.controller;
 
 import com.bridgelabz.employeepayrollapp.dto.EmployeeDTO;
+import com.bridgelabz.employeepayrollapp.dto.ResponseDTO;
 import com.bridgelabz.employeepayrollapp.model.Employee;
 import com.bridgelabz.employeepayrollapp.service.EmployeePayrollService;
 import com.bridgelabz.employeepayrollapp.service.IEmployeePayrollService;
@@ -35,19 +36,19 @@ public class EmployeePayrollController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // Create New Employee
     @PostMapping("/create")
-    public ResponseEntity<Employee> createEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
-        return ResponseEntity.ok(employeePayrollService.createEmployee(employeeDTO));
+    public ResponseEntity<String> addEmployee(@Valid @RequestBody EmployeeDTO employeePayrollDTO) {
+        employeePayrollService.addEmployee(employeePayrollDTO);
+        return ResponseEntity.ok("Employee added successfully");
     }
 
-    // Update Employee by ID
     @PutMapping("/update/{id}")
-    public ResponseEntity<Employee> updateEmployee(
-            @PathVariable int id,
-            @Valid @RequestBody EmployeeDTO employeeDTO) {
-        return ResponseEntity.ok(employeePayrollService.updateEmployee(id, employeeDTO));
+    public ResponseEntity<String> updateEmployee(@PathVariable int id,
+                                                 @Valid @RequestBody EmployeeDTO employeePayrollDTO) {
+        employeePayrollService.updateEmployee(id, employeePayrollDTO);
+        return ResponseEntity.ok("Employee updated successfully");
     }
+
 
 
     // Delete Employee by ID

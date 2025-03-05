@@ -17,12 +17,14 @@ public class EmployeePayrollService implements IEmployeePayrollService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+
     @Override
     public Employee createEmployee(EmployeeDTO employeeDTO) {
         log.info("Creating Employee: {}", employeeDTO);
         Employee employee = new Employee(employeeDTO);
         return employeeRepository.save(employee);
     }
+
 
     @Override
     public List<Employee> getAllEmployees() {
@@ -52,4 +54,10 @@ public class EmployeePayrollService implements IEmployeePayrollService {
         Employee employee = this.getEmployeeById(id);
         employeeRepository.delete(employee);
     }
+
+    @Override
+    public void addEmployee(EmployeeDTO employeePayrollDTO) {
+
+    }
+
 }

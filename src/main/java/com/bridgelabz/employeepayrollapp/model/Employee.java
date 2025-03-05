@@ -22,7 +22,6 @@ public class Employee {
     }
 
     public Employee(EmployeeDTO employeeDTO) {
-       // this.id = id;
         this.name = employeeDTO.getName();
         this.salary = employeeDTO.getSalary();
     }
