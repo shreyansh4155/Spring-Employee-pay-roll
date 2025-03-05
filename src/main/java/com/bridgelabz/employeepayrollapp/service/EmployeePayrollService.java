@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,6 +17,7 @@ public class EmployeePayrollService implements IEmployeePayrollService {
 
     @Autowired
     private EmployeeRepository employeeRepository;
+    private List<Employee> employeeList = new ArrayList<>();
 
 
     @Override
@@ -33,10 +35,11 @@ public class EmployeePayrollService implements IEmployeePayrollService {
     }
 
     @Override
-    public Employee getEmployeeById(int id) {
-        log.debug("Fetching Employee with ID: {}", id);
-        return employeeRepository.findById(id)
-                .orElseThrow(() -> new EmployeeNotFoundException("Employee with ID " + id + " not found"));
+    public Employee getEmployeeById(int empId) {
+        return employeeList.stream()
+                .filter(emp -> emp.getId() == empId)
+                .findFirst()
+                .orElseThrow(() -> new EmployeeNotFoundException("Employee with ID " + empId + " not found"));
     }
 
     @Override
