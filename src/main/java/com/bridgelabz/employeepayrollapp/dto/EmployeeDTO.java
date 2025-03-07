@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @ToString
 public class EmployeeDTO {
-    @NotBlank(message = "Name cannot be blank")
+    @NotBlank(message = "Name cannot be empty")
     private String name;
 
     @NotBlank(message = "Gender must be either 'male' or 'female'")
