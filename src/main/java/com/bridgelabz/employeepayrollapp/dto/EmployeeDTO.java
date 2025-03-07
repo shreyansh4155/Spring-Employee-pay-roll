@@ -1,15 +1,37 @@
 package com.bridgelabz.employeepayrollapp.dto;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Pattern;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import lombok.ToString;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import java.time.LocalDate;
+import java.util.List;
 
 @Data
+@ToString
 public class EmployeeDTO {
-    @NotEmpty(message = "Name cannot be empty")
-    @Pattern(regexp = "^[A-Z][a-zA-Z\\s]{2,}$",
-            message = "Name should start with uppercase and have at least 3 characters")
+    @NotBlank(message = "Name cannot be blank")
     private String name;
 
-    private long salary;
+    @NotBlank(message = "Gender must be either 'male' or 'female'")
+    private String gender;
+
+    @NotNull(message = "Department list cannot be null")
+    private List<String> department;
+
+    @NotNull(message = "Salary value cannot be null")
+    private Long salary;
+
+    @NotNull(message = "Start Date is required")
+    @JsonFormat(pattern = "yyyy-MM-dd")    @PastOrPresent(message = "Start Date must be past or present")
+    private LocalDate startDate;
+
+    @NotBlank(message = "Note cannot be blank")
+    private String note;
+
+    @NotBlank(message = "Profile picture URL cannot be blank")
+    private String profilePic;
 }
