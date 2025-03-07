@@ -22,16 +22,16 @@ public class EmployeeDTO {
     @NotNull(message = "Department list cannot be null")
     private List<String> department;
 
-    @NotNull(message = "Salary value cannot be null")
+    @NotNull(message = "Salary cannot be null")
     private Long salary;
 
     @NotNull(message = "Start Date is required")
     @JsonFormat(pattern = "yyyy-MM-dd")    @PastOrPresent(message = "Start Date must be past or present")
     private LocalDate startDate;
 
-    @NotBlank(message = "Note cannot be blank")
+    @NotBlank(message = "Note should not be blank")
     private String note;
 
-    @NotBlank(message = "Profile picture URL cannot be blank")
+    @NotBlank(message = "You need to provide a profile picture")
     private String profilePic;
 }
